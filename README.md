@@ -112,29 +112,51 @@ Because this is an evolutionary algorithm based method, one would expect the qua
   <em>(Qingyan Guo et al. 2023)</em>
 </div>
 
+**Summary of Results:**
+
+**Performance on Datasets:**
+
+- On the SST-5 dataset, EVOPROMPT using GA outperforms its DE variant.
+ On the Subj dataset, the DE variant of EVOPROMPT performs better.
+
+**Selection Strategies:**
+
+- GA's selection strategy prioritizes prompts with higher scores for generating new prompts, making it more likely to explore around the current best solutions.
+- DE, selects each prompt in the population as a basic prompt and chooses two additional prompts at random.
+
+**Scenario-Based Recommendations:**
+
+When the initial manual prompts are of high quality, as in the SST-5 dataset, GA tends to perform better. The GA variant benefits from high-quality starting points and optimizes further from there.
+DE is recommended when the existing prompts are of poor quality, as in the Subj dataset. DE has a higher likelihood of escaping local optima, which led to a remarkable 25% improvement in performance over manual prompts in the case of the Subj dataset.
+
+**Local Optima:**
+
+- GA is prone to getting trapped in local optima when starting from poor-quality prompts.
+- DE is better at escaping local optima, thanks to its selection strategy and well-designed evolutionary operators.
+
+**In summary, we suggest choosing EVOPROMPT (GA) when several high-quality prompts already exist, and choosing EVOPROMPT (DE) otherwise.**
+  
 # Demonstration of EvoPrompt(GA)!
 
+## Discussion Questions:
+As we can see from the demonstration, there was no need to interact with any model parameters or gradients. Can anyone think of any benefits this may provide?
+
+![Alt Text](https://media.giphy.com/media/26FfieBFKHaHCivte/giphy.gif)
+
+- Model Improvement without additional training: EvoPrompt is a more data-driven approach to using the tool which was developed which improves results.
+- Black-box Utilization: This feature enables EVOPROMPT to work with LLMs as black-box entities, meaning it can be applied to a variety of pre-trained models without needing specific adaptations.
+- Speed and Efficiency: Not having to backpropagate or update the neural network parameters might make the algorithm faster and more computationally efficient in certain scenarios.
+
+What are the implications for the need to have a scoring metric mean for this the usage of this algorithm?  
+- Because you need a metric to decide which prompts to select for the next generation, this algorithm is only applicable for discrete prompts whose successfulness is measurable. 
+
 ## Critical Analysis:
+EvoPrompt offers:
+- **Model Improvement Without Additional Training:**
+As you pointed out, EvoPrompt provides a data-driven way to improve model performance without additional training. This is crucial for scenarios where re-training a model is either computationally expensive or practically infeasible.
 
-Ask a question something akin to No Grad
-Make a point that this is the first paper we've run into where the architecture or computing power isn't the drive for better results, instead we are just making more data driven decision and are learning how to use the tool we built better!
+- **Black-Box Utilization:**
+The ability to treat LLMs as black-boxes opens up the possibility of applying EvoPrompt across different domains and for different tasks, making it a versatile tool for NLP applications.
 
-Notes:
-- It's an interesting cycle because you use LLMs to make the results from LLMs better.
-- Algorithm is called EvoPrompt
-- There's two different ways to implement EvoPrompt:
-  - Genetic algorithm
-  - Differential Evolution
-  - In summary, we suggest choosing EVOPROMPT (GA) when several high-quality prompts already exist, and choosing EVOPROMPT (DE) otherwise.
-  - We optimize prompts for both closed- and open-source LLMs including GPT-3.5 and Alpaca, on 9 datasets spanning language understanding and generation tasks. EVOPROMPT significantly outperforms human-engineered prompts and existing methods for automatic prompt generation by up to 25% and 14% respectively
-  - Given the wide variation in prompts across language models and tasks, the prompt design typically requires substantial human effort and expertise with subjective and relatively limited guidelines.
-    
-    
-- Benefits include:
-  - You can perform this on a black box model-as-a-service.
-  - Improvements up to 14 percent.
-  - Non gradient based algo
-  - Data Driven
-
-- Negatives:	
-	- It doesn't seem like you can just do it for any prompt because you need to have some sort of scoring metric, this means it likes only works for instructions with some predefined way to score. 
+- **Computational Efficiency:**
+The lack of a need for gradient calculations and parameter updates significantly speeds up the optimization process. This is especially important when the optimization has to be performed multiple times or in real-time scenarios.
