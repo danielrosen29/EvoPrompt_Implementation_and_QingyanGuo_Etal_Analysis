@@ -116,8 +116,8 @@ Because this is an evolutionary algorithm based method, one would expect the qua
 
 ## Critical Analysis:
 
-
-
+Ask a question something akin to No Grad
+Make a point that this is the first paper we've run into where the architecture or computing power isn't the drive for better results, instead we are just making more data driven decision and are learning how to use the tool we built better!
 
 Notes:
 - It's an interesting cycle because you use LLMs to make the results from LLMs better.
