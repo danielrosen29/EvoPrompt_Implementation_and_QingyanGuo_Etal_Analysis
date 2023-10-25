@@ -25,75 +25,39 @@ Evolutionary Algorithms (EAs) are a family of optimization algorithms inspired b
 ## EvoPrompt:
 ![image](https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/162d89db-a9ee-4772-81cb-c2ffa9916c87)
 
-This algorithm is the general outline for implementing the evolutionary process of discrete prompts, but can be implemented differnt ways depending on which evolutionary operators (EO) are used. In the paper, Qingyan Guo et al. propose two implementations. The first of these is using a Genetic Algorithm as the EO, the second uses Differential Evolution. The notation for these in the paper is EvoPrompt(EA) and EvoPrompt(DE), respectively. 
+This algorithm is the general outline for implementing the evolutionary process of discrete prompts, but can be implemented different ways depending on which evolutionary operators (EO) are used. In the paper, Qingyan Guo et al. propose two implementations. The first of these is using a Genetic Algorithm as the EO, the second uses Differential Evolution. The notation for these in the paper is EvoPrompt(EA) and EvoPrompt(DE), respectively. 
 
 ### EvoPrompt(EA):
-EvoPrompt(GA):
+<img src="https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/747a5372-a1b0-4865-bc69-48a186d6df0d" alt="EvoPrompt(GA) Pseudocode" align='right' width=50%>
+Genetic algorithms attempt to find the best solution by mimicking the process of natural evolution—inheritance, mutation, selection, and crossover are the primary operators.
 
-// EvoPrompt with Genetic Algorithm
-//Algorithm EvoPrompt(N, T)
-    Input:
-        N: Size of the population of prompts
-        T: Number of iterations
-    
-    // Step 1: Initialize Population
-    P <- Empty list of size N
-    
-    // Include human-engineered prompts
-    AddHumanEngineeredPrompts(P)
-    
-    // Generate random prompts using LLM
-    GenerateRandomPromptsLLM(P)
-    
-    // Step 2: Evolutionary Loop
-    for t = 1 to T do
-    
-        // Step 2.1: Parent Selection via Roulette Wheel
-        p1, p2 <- RouletteWheelSelection(P)
-        
-        // Calculate selection probability based on performance score
-        pi <- CalculateSelectionProbability(p1, p2, P)
-        
-        // Step 2.2: Crossover
-        // Instruct LLM to combine parts of p1 and p2 to create a new prompt
-        p' <- LLMCrossover(p1, p2)
-        
-        // Step 2.3: Mutation
-        // Instruct LLM to randomly change words in the crossover result
-        p'' <- LLMMutate(p')
-        
-        // Step 2.4: Evaluation
-        // Evaluate the mutated prompt on a development set to get its score
-        s'' <- EvaluateOnDevSet(p'')
-        
-        // Step 2.5: Update Population
-        // Add new prompt and its score to the population
-        AddToPopulation(P, p'', s'')
-        
-        // Remove the prompt with the lowest score to maintain population size N
-        RemoveLowestScorePrompt(P)
-        
-    end for
-    
-    // Step 3: Return the Best Prompt
-    p* <- GetHighestScorePrompt(P)
-    
-    return p*
+Basic Steps:
+- Initialization: Create an initial population of candidate solutions (chromosomes).
+- Evaluation: Evaluate the fitness of each chromosome in the population.
+- Selection: Select parents based on their fitness.
+- Crossover: Create new chromosomes (offspring) by combining the genetic information of the parents.
+- Mutation: Apply random changes to the offspring.
+- Replacement: Replace the old population with the new population of offspring.
+- Termination: Repeat steps 2-6 until a termination condition is met (e.g., max number of generations, a solution with acceptable fitness is found).
+- Crossover (Recombination)
+
+**Crossover:**
+
+This step combines genetic material from two parent chromosomes to produce one or more offspring. The idea is to inherit good traits from both parents, increasing the likelihood that the offspring will be more "fit." There are several types of crossover techniques:
+
+**Mutation:**
+
+This step serves to maintain genetic diversity and helps in exploring the search space more broadly. After crossover, the offspring undergo mutation with a small probability. Mutation changes one or more gene values in a chromosome.
+  <img/>
+<img src="https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/4f021b7f-649e-474f-a57b-2315a72ede77"/> 
+<div align="center">
+  <em>Demonstration of Genetic Algorithm Implemented for Discrete LLM Prompt. (Qingyan Guo et al. 2023)</em>
+</div>
 
 
 ### EvoPrompt(DE):
+![image](https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/658c1844-ed70-4cb7-86bf-4a3cd9e0c63a)
 
-Initialize population P with N prompts
-For t = 1 to T iterations:
-For each prompt pi in P:
-Randomly select prompts a, b, c from P
-Instruct LLM to identify different parts between b and c
-Instruct LLM to mutate different parts
-Instruct LLM to incorporate differences into a to get p'
-Instruct LLM to crossover p' with pi to get p''
-Evaluate p'' on dev set D to get score s''
-If s'' > si, replace pi with p'' in P
-Return prompt p* in P with highest score
 
 
 Notes:
