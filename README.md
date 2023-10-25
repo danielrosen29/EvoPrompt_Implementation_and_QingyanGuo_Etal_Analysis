@@ -139,7 +139,7 @@ DE is recommended when the existing prompts are of poor quality, as in the Subj 
 # Demonstration of EvoPrompt(GA)!
 
 ## Discussion Questions:
-As we can see from the demonstration, there was no need to interact with any model parameters or gradients. Can anyone think of any benefits this may provide?
+*As we can see from the demonstration, there was no need to interact with any model parameters or gradients. Can anyone think of any benefits this may provide?*
 
 ![Alt Text](https://media.giphy.com/media/26FfieBFKHaHCivte/giphy.gif)
 
@@ -147,7 +147,8 @@ As we can see from the demonstration, there was no need to interact with any mod
 - Black-box Utilization: This feature enables EVOPROMPT to work with LLMs as black-box entities, meaning it can be applied to a variety of pre-trained models without needing specific adaptations.
 - Speed and Efficiency: Not having to backpropagate or update the neural network parameters might make the algorithm faster and more computationally efficient in certain scenarios.
 
-What are the implications for the need to have a scoring metric mean for this the usage of this algorithm?  
+*What are the implications for the need to have a scoring metric mean for this the usage of this algorithm?*
+
 - Because you need a metric to decide which prompts to select for the next generation, this algorithm is only applicable for discrete prompts whose successfulness is measurable. 
 
 ## Critical Analysis:
