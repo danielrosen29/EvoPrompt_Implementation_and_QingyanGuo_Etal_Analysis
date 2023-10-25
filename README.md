@@ -9,18 +9,18 @@ A discrete prompt is the use of explicit instructions to the input text fed to L
 the need to access the parameters and gradients of the models (Liu et al., 2023). These are the types of prompts which EvoPrompt aims to improve. 
 
 ## Other Discrete Prompt Generation Methods:
-- Reinforcement learning (RL): Methods like RLPrompt (Deng et al. 2022) and TEMPERA (Zhang et al. 2023) train an RL agent to generate prompts by interacting with the LLM. They require access to model internals like output probabilities.
-- Enumeration: Methods like PromptSource (Bach et al. 2022) and APE (Zhou et al. 2022) generate a large set of prompt candidates via techniques like sampling and then select the best. They focus on exploration but can be inefficient.
-- Revision: Approaches like GRIPS (Prasad et al. 2022) and AutoPrompt (Shin et al. 2020) iterate on an initial prompt by fixing incorrect predictions. They emphasize local search so can get stuck in local optima.
-- Editing: Methods like Instruction Tuning (Prasad et al. 2022) edit the words in a prompt to improve it. They also focus on local improvements.
+- **Reinforcement learning (RL):** Methods like RLPrompt (Deng et al. 2022) and TEMPERA (Zhang et al. 2023) train an RL agent to generate prompts by interacting with the LLM. They require access to model internals like output probabilities.
+- **Enumeration:** Methods like PromptSource (Bach et al. 2022) and APE (Zhou et al. 2022) generate a large set of prompt candidates via techniques like sampling and then select the best. They focus on exploration but can be inefficient.
+- **Revision:** Approaches like GRIPS (Prasad et al. 2022) and AutoPrompt (Shin et al. 2020) iterate on an initial prompt by fixing incorrect predictions. They emphasize local search so can get stuck in local optima.
+- **Editing:** Methods like Instruction Tuning (Prasad et al. 2022) edit the words in a prompt to improve it. They also focus on local improvements.
 
 ## Evolutionary Algorithms:
 Evolutionary Algorithms (EAs) are a family of optimization algorithms inspired by the process of natural evolution. These algorithms are heuristics used to find approximate solutions to optimization and search problems. There are many different types and subtypes of EAs including but not limited to:
 
-- Genetic Algorithms (GAs): Perhaps the most well-known type, focused on string-based chromosomes and typically employs crossover, mutation, and selection.
-- Differential Evolution (DE): A population-based optimization algorithm that optimizes a problem by iteratively improving candidate solutions with regard to a given measure of quality.
-- Estimation of Distribution Algorithms (EDAs): Rather than using crossover and mutation, these algorithms build probabilistic models of promising solutions and sample from these models to generate new candidates.
-- Neuroevolution – A method for iteratively building a neural network through genetic propogation. 
+- **Genetic Algorithms (GAs):** Perhaps the most well-known type, focused on string-based chromosomes and typically employs crossover, mutation, and selection.
+- **Differential Evolution (DE):** A population-based optimization algorithm that optimizes a problem by iteratively improving candidate solutions with regard to a given measure of quality.
+- **Estimation of Distribution Algorithms (EDAs):** Rather than using crossover and mutation, these algorithms build probabilistic models of promising solutions and sample from these models to generate new candidates.
+- **Neuroevolution:** A method for iteratively building a neural network through genetic propogation. 
 
 ## EvoPrompt:
 ![image](https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/162d89db-a9ee-4772-81cb-c2ffa9916c87)
@@ -31,15 +31,16 @@ This algorithm is the general outline for implementing the evolutionary process 
 <img src="https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/747a5372-a1b0-4865-bc69-48a186d6df0d" alt="EvoPrompt(GA) Pseudocode" align='right' width=50%>
 Genetic algorithms attempt to find the best solution by mimicking the process of natural evolution—inheritance, mutation, selection, and crossover are the primary operators.
 
-Basic Steps:
-- Initialization: Create an initial population of candidate solutions (chromosomes).
-- Evaluation: Evaluate the fitness of each chromosome in the population.
-- Selection: Select parents based on their fitness.
-- Crossover: Create new chromosomes (offspring) by combining the genetic information of the parents.
-- Mutation: Apply random changes to the offspring.
-- Replacement: Replace the old population with the new population of offspring.
-- Termination: Repeat steps 2-6 until a termination condition is met (e.g., max number of generations, a solution with acceptable fitness is found).
-- Crossover (Recombination)
+**Basic Steps:**
+
+- **Initialization:** Create an initial population of candidate solutions (chromosomes).
+- **Evaluation:** Evaluate the fitness of each chromosome in the population.
+- **Selection:** Select parents based on their fitness.
+- **Crossover:** Create new chromosomes (offspring) by combining the genetic information of the parents.
+- **Mutation:** Apply random changes to the offspring.
+- **Replacement:** Replace the old population with the new population of offspring.
+- **Termination:** Repeat steps 2-6 until a termination condition is met (e.g., max number of generations, a solution with acceptable fitness is found).
+- **Crossover** (Recombination)
 
 **Crossover:**
 
@@ -51,12 +52,70 @@ This step serves to maintain genetic diversity and helps in exploring the search
   <img/>
 <img src="https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/4f021b7f-649e-474f-a57b-2315a72ede77"/> 
 <div align="center">
-  <em>Demonstration of Genetic Algorithm Implemented for Discrete LLM Prompt. (Qingyan Guo et al. 2023)</em>
+  <em>Demonstration of Genetic Algorithm Implemented for Evolving Discrete LLM Prompt. (Qingyan Guo et al. 2023)</em>
 </div>
 
 
 ### EvoPrompt(DE):
-![image](https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/658c1844-ed70-4cb7-86bf-4a3cd9e0c63a)
+Differential Evolution (DE) is a population-based optimization algorithm commonly used for solving optimization problems, including those that are nonlinear and non-differentiable. It is particularly well-suited for optimization in a continuous domain and has applications in various fields like engineering, data science, and finance.
+
+<img src= "https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/658c1844-ed70-4cb7-86bf-4a3cd9e0c63a" align='right' width=50%>
+
+**Basic Steps:**
+
+- **Initialization:** A population of potential solutions is randomly initialized within the problem's search space. Each individual in the population is usually represented as a vector of real numbers.
+- **Mutation:** For each target vector in the current population, a mutant vector is generated by combining the vectors of three other individuals selected randomly from the population. The combination is generally a weighted difference between two of these vectors, which is then added to the third vector.
+  
+		Mutant Vector = Target + F × (Vector1 − Vector2)
+		F = mutation factor: usually between 0 and 2.
+	
+- **Crossover:** The mutant vector then undergoes crossover with the target vector to produce a trial vector. Elements of the mutant vector have a chance to be mixed with elements of the target vector, depending on a crossover probability parameter CR.
+- **Selection:** The trial vector is then evaluated using the objective function. If it offers a better solution than the target vector, it replaces the target vector in the next generation. Otherwise, the target vector remains in the population.
+- **Termination:** Steps 2-4 are repeated until a termination criterion is met, such as a maximum number of generations or an acceptable level of convergence.
+<img/>
+<img src="https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/030189ee-b047-4b4b-929d-e9da034a98d4"/>
+<div align="center">
+  <em>Demonstration of Differential Evolution Implemented for Evolving Discrete LLM Prompt. (Qingyan Guo et al. 2023)</em>
+</div>
+
+## Experimental Results:
+The study uses GPT-3.5 for performing evolutionary operations to optimize prompts with EVOPROMPT for both open-source Alpaca-7b and closed-source GPT-3.5. Their approach was compared against three methods:
+
+- Manual Instructions (MI)
+- PromptSource and Natural Instructions (NI) that use human-written prompts
+- APE which uses iterative Monte Carlo Search on initial prompts.
+
+**Language understanding:**
+
+Seven datasets were used, focusing on sentiment classification, topic classification, and subjectivity classification. EVOPROMPT showed improved results compared to previous methods. Notably, EVOPROMPT (DE) showed a significant advantage of 9.7% accuracy over EVOPROMPT (GA) for subjectivity classification (Subj).
+
+![image](https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/352588a6-3c42-4ad0-a556-392bd7113674)
+<div align="center">
+  <em>(Qingyan Guo et al. 2023)</em>
+</div>
+
+**Language Generation (Summarization):**
+
+EVOPROMPT was evaluated for text summarization on the SAMSum dataset and text simplification on the ASSET dataset. The results indicate that EVOPROMPT outperforms both manual and APE-generated prompts on Alpaca-7b and GPT-3.5. Particularly, EVOPROMPT (DE) performed better on the summarization task, while both GA and DE versions performed similarly on the simplification task.
+
+![image](https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/6164f350-a555-4e48-a0c6-c6c0a7af31c8)
+<div align="center">
+  <em>(Qingyan Guo et al. 2023)</em>
+</div>
+
+**Results by Iteration:**
+
+Because this is an evolutionary algorithm based method, one would expect the quality of responses to improve as the number of iteration increases. The following graph provided by the authors shows that this was in fact the case. 
+
+![image](https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/af10d540-6ce8-4c07-89f7-dc3075320e93)
+<div align="center">
+  <em>(Qingyan Guo et al. 2023)</em>
+</div>
+
+# Demonstration of EvoPrompt(GA)!
+
+## Critical Analysis:
+
 
 
 
