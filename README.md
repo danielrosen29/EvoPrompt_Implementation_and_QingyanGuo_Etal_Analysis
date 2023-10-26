@@ -154,13 +154,19 @@ DE is recommended when the existing prompts are of poor quality, as in the Subj 
 ## Critical Analysis:
 EvoPrompt offers:
 - **Model Improvement Without Additional Training:**
-EvoPrompt provides a data-driven approach to improving model performance without additional training. This is crucial for scenarios where re-training a model is either computationally expensive or practically infeasible.
+EvoPrompt provides a data-driven framework to improving model performance without additional training. This is crucial for scenarios where re-training a model is either computationally expensive or practically infeasible. 
 
 - **Black-Box Utilization:**
 The ability to treat LLMs as black-boxes opens up the possibility of applying EvoPrompt across different domains and for different tasks, making it a versatile tool for NLP applications.
 
 - **Computational Efficiency:**
 The lack of a need for gradient calculations and parameter updates significantly speeds up the optimization process. This is especially important when the optimization has to be performed multiple times or in real-time scenarios.
+
+- **An interesting conceptual idea of true AI** There is a framework implemented for the model to improve itself, is that now true AI?
+
+Downsides:
+- **Limited Cases where it is applicable**
+- **Because you need a ground truth, even if the model comes up with a better answer you may mark it worse than the original despite it being better**
 
 ## References:
 Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are few-shot learners. Advances in neural information processing systems, 33:1877–1901, 2020.
