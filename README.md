@@ -28,7 +28,7 @@ Evolutionary Algorithms (EAs) are a family of optimization algorithms inspired b
 This algorithm is the general outline for implementing the evolutionary process of discrete prompts, but can be implemented different ways depending on which evolutionary operators (EO) are used. In the paper, Qingyan Guo et al. propose two implementations. The first of these is using a Genetic Algorithm as the EO, the second uses Differential Evolution. The notation for these in the paper is EvoPrompt(EA) and EvoPrompt(DE), respectively. 
 
 ### EvoPrompt(EA):
-<img src="https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/747a5372-a1b0-4865-bc69-48a186d6df0d" alt="EvoPrompt(GA) Pseudocode" align='right' width=50%>
+<img src="https://github.com/danielrosen29/EvoPrompt_Implementation_and_QingyanGuo_Etal_Analysis/assets/75226826/236d8997-5e35-42a6-9c6f-a5b2dd16ea8f" alt="EvoPrompt(GA) Pseudocode" align='right' width=50%>
 Genetic algorithms attempt to find the best solution by mimicking the process of natural evolution—inheritance, mutation, selection, and crossover are the primary operators.
 
 **Basic Steps for Genetic Algorithms:**
@@ -54,6 +54,7 @@ This step serves to maintain genetic diversity and helps in exploring the search
 <div align="center">
   <em>Demonstration of Genetic Algorithm Implemented for Evolving Discrete LLM Prompt. (Qingyan Guo et al. 2023)</em>
 </div>
+
 
 
 ### EvoPrompt(DE):
