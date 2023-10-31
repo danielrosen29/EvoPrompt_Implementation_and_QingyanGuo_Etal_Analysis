@@ -81,7 +81,7 @@ Differential Evolution (DE) is a population-based optimization algorithm commonl
 </div>
 
 ## Experimental Results:
-The study uses GPT-3.5 for performing evolutionary operations to optimize prompts with EvoPrompt for both open-source Alpaca-7b and closed-source GPT-3.5. Their approach was compared against three methods:
+The study uses GPT-3.5 for performing evolutionary operations to optimize prompts with EvoPrompt for both open-source Alpaca-7b and closed-source GPT-3.5. Their approach was compared against four existing methods:
 
 - Manual Instructions (MI) which are predefined in Zhang et al. (2023b) and  Sanh et al. (2021)
 - PromptSource and Natural Instructions (NI) that find related human-written prompts from multiple datasets. 
