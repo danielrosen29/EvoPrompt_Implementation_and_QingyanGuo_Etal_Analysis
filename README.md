@@ -10,12 +10,6 @@ In recent times it has become clear that Large Language Models (LLMs) exhibit re
 A discrete prompt is the use of explicit instructions to the input text fed to LLMs. These discrete prompts guide LLMs perform specific tasks with negligible increases to computational cost meanwhile eliminating
 the need to access the parameters and gradients of the models (Liu et al., 2023). These are the types of prompts which EvoPrompt aims to improve. 
 
-## Other Discrete Prompt Generation Methods:
-- **Reinforcement learning (RL):** Methods like RLPrompt (Deng et al. 2022) and TEMPERA (Zhang et al. 2023) train an RL agent to generate prompts by interacting with the LLM. They require access to model internals like output probabilities.
-- **Enumeration:** Methods like PromptSource (Bach et al. 2022) and APE (Zhou et al. 2022) generate a large set of prompt candidates via techniques like sampling and then select the best. Higher variance algorithm. 
-- **Revision:** Approaches like GRIPS (Prasad et al. 2022) and AutoPrompt (Shin et al. 2020) iterate on an initial prompt by fixing incorrect predictions. Higher bias algorithm. 
-- **Editing:** Methods like Instruction Tuning (Prasad et al. 2022) edit the words in a prompt to improve it. These also focus on local improvements.
-
 ## Evolutionary Algorithms:
 Evolutionary Algorithms (EAs) are a family of optimization algorithms inspired by the process of natural evolution. These algorithms are heuristics used to find approximate solutions to optimization and search problems. There are many different types and subtypes of EAs including but not limited to:
 
@@ -79,6 +73,12 @@ Differential Evolution (DE) is a population-based optimization algorithm commonl
 <div align="center">
   <em>Demonstration of Differential Evolution Implemented for Evolving Discrete LLM Prompt. (Qingyan Guo et al. 2023)</em>
 </div>
+
+## Other Discrete Prompt Generation Methods:
+- **Reinforcement learning (RL):** Methods like RLPrompt (Deng et al. 2022) and TEMPERA (Zhang et al. 2023) train an RL agent to generate prompts by interacting with the LLM. They require access to model internals like output probabilities.
+- **Enumeration:** Methods like PromptSource (Bach et al. 2022) and APE (Zhou et al. 2022) generate a large set of prompt candidates via techniques like sampling and then select the best. Higher variance algorithm. 
+- **Revision:** Approaches like GRIPS (Prasad et al. 2022) and AutoPrompt (Shin et al. 2020) iterate on an initial prompt by fixing incorrect predictions. Higher bias algorithm. 
+- **Editing:** Methods like Instruction Tuning (Prasad et al. 2022) edit the words in a prompt to improve it. These also focus on local improvements.
 
 ## Experimental Results:
 The study uses GPT-3.5 for performing evolutionary operations to optimize prompts with EvoPrompt for both open-source Alpaca-7b and closed-source GPT-3.5. Their approach was compared against four existing methods:
