@@ -40,15 +40,15 @@ def GenerateRandomPromptsLLM(N, user_prompt):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo-0613",
             messages=[
-                {"role": "user", "content": f"""Please read the prompt following the <prompt> tag and rewrite it in a way that changes its structure and wording significantly, yet still conveys the same meaning or accomplishes the same task as the original sentence.
-                 Your goal is to create a prompt that is functionally equivalent but stylistically distinct and more robust than the original.
+                {"role": "user", "content": f"""Please read the Large Language Model prompt following the <prompt> tag and try to understand what its task is.
+                 Then respond with a new, robust prompt which will generate a better response to the task. Only return that prompt. Do not include a <prompt> tag.
                  
             <prompt>
             {user_prompt}
             """}
             ],
-            temperature = .9,
-            #frequency_penalty = -.3
+            temperature = 1.2,
+            frequency_penalty = -.5
         )
         temp = response['choices'][0]['message']['content']
         if temp != user_prompt:
@@ -197,16 +197,12 @@ def evoprompt_ga(num_prompts, num_iterations, role, user_prompt, target_response
         #Mutate
         mutated_prompts = []
         for co_prompt in crossover_prompts:
-            MUTATE_PROMPT = f"""Given the prompt which comes after the <prompt> tag,
-            create a new prompt by mutating the original.
-            These mutations should include but are not limited to:
-            
-            - Replacing the words with synonyms
-            - Rephrasing ideas
-            - Adding to the original to be more effective at completing its task.
-            
-            Your new prompt should only contain single quotes and should not include the <prompt> tag.
-            
+            MUTATE_PROMPT = f"""Please read the prompt following the <prompt> tag and rewrite it in a way that is different than the original. 
+            You can add or remove portions.
+            Replace words with synonyms and antonyms.
+            Change the goal of the prompt.
+            Only respond with a prompt. Do not include the <prompt> tag or anything before or after the prompt.
+                 
             <prompt>
             {co_prompt}
             """
@@ -216,16 +212,17 @@ def evoprompt_ga(num_prompts, num_iterations, role, user_prompt, target_response
                 messages=[
                     {"role": "user", "content": MUTATE_PROMPT}
                 ],
-                #temperature = .65,
-                #frequency_penalty = -.3
+                temperature = 1.3,
+                frequency_penalty = -.5
             )
             content = new_prompt['choices'][0]['message']['content']
             if content != co_prompt:
                 try:
-                    mutated_prompts.append(eval(content))
+                    mutated_prompts.append(content)
                 except SyntaxError:
                     continue
-                
+        with results_col:
+            st.markdown(f"### Example Child:\n{mutated_prompts[0]}")        
         with log_col:
             st.write("Mutation Stage Complete")
         #Evaluation        
@@ -315,22 +312,13 @@ def evoprompt_ga(num_prompts, num_iterations, role, user_prompt, target_response
 
 ---
 
-We live in a time where technology and information are growing really fast. This brings both good and bad things. On one hand, we can easily access a lot of useful information. On the other hand, there's also a lot of false information out there.
-
-As things keep changing, it's important for us to be smart about what information we believe. We have to be careful not to get trapped in "echo chambers" where we only hear opinions like our own, as this can make us narrow-minded.
-
-There are also a lot of conflicts and divisions in society today, both locally and globally. Leaders sometimes make these worse by focusing only on what a specific group wants, and this can be harmful to everyone. So, we should all try to be open-minded and inclusive in how we think and act.
-
-Technology is advancing quickly, offering great possibilities like cleaner energy and better medical treatments. But we also have to think about the downsides, like job loss due to automation, and ethical questions around things like AI and biotech.
-
-In short, the modern world is complex and filled with both challenges and opportunities. It's up to each of us to be well-informed and responsible in how we navigate through it.
+The passage highlights the critical juncture society is currently experiencing due to technological advancements and the rapid spread of information. It emphasizes the need for wise judgment in navigating the overwhelming amount of data and the detrimental impact of echo chambers. The socio-political landscape is described as vulnerable to conflicts driven by divisive leaders exploiting narrow interests, urging the cultivation of an inclusive mindset. The passage also acknowledges the potential benefits and ethical dilemmas posed by technological progress, such as AI and renewable energy. Overall, the main message conveyed is the importance of adopting a holistic and nuanced approach to meet the challenges and opportunities of modern life, demanding informed, responsible, and proactive participation from each individual.
 
 ---
 
 **This text was generated with the following prompt:**
 
-Given the previous text,  please rewrite it in a simplified manner. Your goal is to capture the essence and key points of the original text, without losing important information. 
-Remove jargon, elaborate vocabulary, and convoluted sentences to make it easily understandable for a general audience.
+Capture the essential meaning, key points, and main message conveyed in the passage.
 
 ---
 
@@ -380,13 +368,5 @@ T = st.number_input("Number of Interations (T): ", min_value=1, max_value=15, va
 prompt = st.text_area("Prompt: ")
 st.markdown("**Note: The context is added to the prompt in the algorithm. There is no need to add it in the text box.**")
 if st.button("EvoPrompt(GA)"):
-    st.write(evoprompt_ga(N, T, 'assistant', prompt, """We live in a time where technology and information are growing really fast. This brings both good and bad things. On one hand, we can easily access a lot of useful information. On the other hand, there's also a lot of false information out there.
-
-As things keep changing, it's important for us to be smart about what information we believe. We have to be careful not to get trapped in "echo chambers" where we only hear opinions like our own, as this can make us narrow-minded.
-
-There are also a lot of conflicts and divisions in society today, both locally and globally. Leaders sometimes make these worse by focusing only on what a specific group wants, and this can be harmful to everyone. So, we should all try to be open-minded and inclusive in how we think and act.
-
-Technology is advancing quickly, offering great possibilities like cleaner energy and better medical treatments. But we also have to think about the downsides, like job loss due to automation, and ethical questions around things like AI and biotech.
-
-In short, the modern world is complex and filled with both challenges and opportunities. It's up to each of us to be well-informed and responsible in how we navigate through it."""))
+    st.write(evoprompt_ga(N, T, 'assistant', prompt, """The passage highlights the critical juncture society is currently experiencing due to technological advancements and the rapid spread of information. It emphasizes the need for wise judgment in navigating the overwhelming amount of data and the detrimental impact of echo chambers. The socio-political landscape is described as vulnerable to conflicts driven by divisive leaders exploiting narrow interests, urging the cultivation of an inclusive mindset. The passage also acknowledges the potential benefits and ethical dilemmas posed by technological progress, such as AI and renewable energy. Overall, the main message conveyed is the importance of adopting a holistic and nuanced approach to meet the challenges and opportunities of modern life, demanding informed, responsible, and proactive participation from each individual."""))
 
