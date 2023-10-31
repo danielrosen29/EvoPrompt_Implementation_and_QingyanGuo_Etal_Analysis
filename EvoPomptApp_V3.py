@@ -359,7 +359,7 @@ In summation, the multifaceted challenges and opportunities that confront us nec
 
 ---
 
-### Create a prompt which best simplifies the text while maintaining the important points.
+### Create a summarization prompt to be evolved using EvoPrompt(GA).
 
 """)
 
