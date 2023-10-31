@@ -116,27 +116,32 @@ Because this is an evolutionary algorithm based method, one would expect the qua
 
 ## Summary of Results:
 
+**Number of Evolutionary Steps:**
+
+- Both EvoPrompt implementations showed continual improvement as then number of evolutionary steps (T) increased.
+- Although they sometimes plateau, they will never get worse as T increases.
+  
 **Dataset Performance:**
 
-- EvoPrompt(GA) performs better that or comprable EvoPrompt(DE) to for language understanding tasks. 
-- EvoPrompt(DE) is superior at all question answering tasks.
+- EvoPrompt(GA) performs better than or comparable to EvoPrompt(DE) for most language understanding tasks. 
+- EvoPrompt(DE) is superior at all question answering tasks and subjectivity classification.
 
 **Scenario-Based Recommendations:**
+
 - Use GA when the initial manual prompts are of high quality.
 - Use DE when the initial prompts are poor, as it's better at escaping local optima.
 
+---
+
+## Let's look at our demo's results!!!
+
+---
 ## Discussion Questions:
-*As we can see from the demonstration, there was no need to interact with any model parameters or gradients. Can anyone think of any benefits this may provide?*
+- *As we can see from pseudocode, there was no need for EvoPrompt to interact with any model parameters or gradients. Can anyone think of any benefits this may provide?*
+
+- *What are the implications of EvoPrompt requiring a scoring metric?*
 
 ![Alt Text](https://media.giphy.com/media/26FfieBFKHaHCivte/giphy.gif)
-
-- Model Improvement without additional training: EvoPrompt is a more data-driven approach to using the tool which was already  in production that improves results.
-- Black-box Utilization: This feature enables EvoPrompt to work with LLMs as black-box entities, meaning it can be applied to a variety of pre-trained models without needing specific adaptations.
-- Speed and Efficiency: Not having to backpropagate or update the neural network parameters might make the algorithm faster and more computationally efficient in certain scenarios.
-
-*What are the implications for the need to have a scoring metric mean for this the usage of this algorithm?*
-
-- Because you need a metric to decide which prompts to select for the next generation, this algorithm is only applicable for discrete prompts whose successfulness is measurable. 
 
 ## Critical Analysis:
 ### Implications:
@@ -149,13 +154,22 @@ Because EvoPrompt does not need access to model parameters, EvoPrompt is capable
 - **Computational Efficiency:**
 The lack of a need for gradient calculations and parameter updates significantly speeds up the optimization process. This is especially important when the optimization has to be performed multiple times or in real-time scenarios.
 
-- **AI Implications** There is a framework implemented for the model to improve itself, is that true AI?
+- **AI Implications**:
+EvoPrompt provides a framework for the model to improve its own performance. 
 
 ### Limitations:
-- **Limited Cases where it is applicable**
-	- Because you need a ground truth, even if the model comes up with a better answer you may mark it worse than the original despite it being better.
+- **Limited Cases where it is applicable:**
+Because you need a ground truth, even if the model comes up with a better answer you may mark it worse than the original despite it being better.
 - **Can anyone think of any others?**
 
+---
+
+## Thank you so much for your time!
+
+![Alt Text](https://github.com/danielrosen29/EvoPrompt_Implementation_and_QingyanGuo_Etal_Analysis/assets/75226826/d67c4ec5-e736-48b4-8d45-55473af2ea68)
+
+
+---
 ## References:
 Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are few-shot learners. Advances in neural information processing systems, 33:1877–1901, 2020.
 
