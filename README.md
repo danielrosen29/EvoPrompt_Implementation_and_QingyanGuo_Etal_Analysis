@@ -1,5 +1,6 @@
 # CONNECTING LARGE LANGUAGE MODELS WITH EVOLUTIONARY ALGORITHMS YIELDS POWERFUL PROMPT OPTIMIZERS
 **Qingyan Guo, Rui Wang, Junliang Guo, Bei Li, Kaitao Song, Xu Tan, Guoqing Liu, Jiang Bian, Yujiu Yang**
+****************************************************************************************************
 **Tsinghua University, Microsoft Research, Northeastern University**
 ****************************************************************************************************
 ## Introduction: 
@@ -28,7 +29,7 @@ Evolutionary Algorithms (EAs) are a family of optimization algorithms inspired b
 
 This algorithm is the general outline for implementing the evolutionary process of discrete prompts, but can be implemented different ways depending on which evolutionary operators (EO) are used. In the paper, Qingyan Guo et al. propose two implementations. The first of these is using a Genetic Algorithm as the EO, the second uses Differential Evolution. The notation for these in the paper is EvoPrompt(EA) and EvoPrompt(DE), respectively. 
 
-### EvoPrompt(EA):
+### EvoPrompt(GA):
 <img src="https://github.com/danielrosen29/EvoPrompt_Implementation_and_QingyanGuo_Etal_Analysis/assets/75226826/236d8997-5e35-42a6-9c6f-a5b2dd16ea8f" alt="EvoPrompt(GA) Pseudocode" align='right' width=50%>
 Genetic algorithms attempt to find the best solution by mimicking the process of natural evolution—inheritance, mutation, selection, and crossover are the primary operators.
 
@@ -41,7 +42,6 @@ Genetic algorithms attempt to find the best solution by mimicking the process of
 - **Mutation:** Apply random changes to the offspring.
 - **Replacement:** Replace the old population with the new population of offspring.
 - **Termination:** Repeat steps 2-6 until a termination condition is met (e.g., max number of generations, a solution with acceptable fitness is found).
-- **Crossover** (Recombination)
 
 **Crossover:**
 
@@ -81,15 +81,15 @@ Differential Evolution (DE) is a population-based optimization algorithm commonl
 </div>
 
 ## Experimental Results:
-The study uses GPT-3.5 for performing evolutionary operations to optimize prompts with EVOPROMPT for both open-source Alpaca-7b and closed-source GPT-3.5. Their approach was compared against three methods:
+The study uses GPT-3.5 for performing evolutionary operations to optimize prompts with EvoPrompt for both open-source Alpaca-7b and closed-source GPT-3.5. Their approach was compared against three methods:
 
-- Manual Instructions (MI)
-- PromptSource and Natural Instructions (NI) that use human-written prompts
+- Manual Instructions (MI) which are predefined in Zhang et al. (2023b) and  Sanh et al. (2021)
+- PromptSource and Natural Instructions (NI) that find related human-written prompts from multiple datasets. 
 - APE which uses iterative Monte Carlo Search on initial prompts.
 
 **Language understanding:**
 
-Seven datasets were used, focusing on sentiment classification, topic classification, and subjectivity classification. EVOPROMPT showed improved results compared to previous methods. Notably, EVOPROMPT (DE) showed a significant advantage of 9.7% accuracy over EVOPROMPT (GA) for subjectivity classification (Subj).
+Seven datasets were used, focusing on sentiment classification, topic classification, and subjectivity classification. EvoPrompt showed improved results compared to previous methods. Notably, EvoPrompt (DE) showed a significant advantage of 9.7% accuracy over EvoPrompt (GA) for subjectivity classification (Subj).
 
 ![image](https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/352588a6-3c42-4ad0-a556-392bd7113674)
 <div align="center">
@@ -98,7 +98,7 @@ Seven datasets were used, focusing on sentiment classification, topic classifica
 
 **Language Generation (Summarization):**
 
-EVOPROMPT was evaluated for text summarization on the SAMSum dataset and text simplification on the ASSET dataset. The results indicate that EVOPROMPT outperforms both manual and APE-generated prompts on Alpaca-7b and GPT-3.5. Particularly, EVOPROMPT (DE) performed better on the summarization task, while both GA and DE versions performed similarly on the simplification task.
+EvoPrompt was evaluated for text summarization on the SAMSum dataset and text simplification on the ASSET dataset. The results indicate that EvoPrompt outperforms both manual and APE-generated prompts on Alpaca-7b and GPT-3.5. Particularly, EvoPrompt (DE) performed better on the summarization task, while both GA and DE versions performed similarly on the simplification task.
 
 ![image](https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/6164f350-a555-4e48-a0c6-c6c0a7af31c8)
 <div align="center">
@@ -114,39 +114,24 @@ Because this is an evolutionary algorithm based method, one would expect the qua
   <em>(Qingyan Guo et al. 2023)</em>
 </div>
 
-**Summary of Results:**
+## Summary of Results:
 
-**Performance on Datasets:**
+**Dataset Performance:**
 
-- On the SST-5 dataset, EVOPROMPT using GA outperforms its DE variant.
- On the Subj dataset, the DE variant of EVOPROMPT performs better.
-
-**Selection Strategies:**
-
-- GA's selection strategy prioritizes prompts with higher scores for generating new prompts, making it more likely to explore around the current best solutions.
-- DE, selects each prompt in the population as a basic prompt and chooses two additional prompts at random.
+- EvoPrompt(GA) performs slightly better for sentiment analysis. (SST-5 dataset)
+- EvoPrompt(GA) is superior at question answering (SUBJ dataset)
 
 **Scenario-Based Recommendations:**
-
-When the initial manual prompts are of high quality, as in the SST-5 dataset, GA tends to perform better. The GA variant benefits from high-quality starting points and optimizes further from there.
-DE is recommended when the existing prompts are of poor quality, as in the Subj dataset. DE has a higher likelihood of escaping local optima, which led to a remarkable 25% improvement in performance over manual prompts in the case of the Subj dataset.
-
-**Local Optima:**
-
-- GA is prone to getting trapped in local optima when starting from poor-quality prompts.
-- DE is better at escaping local optima, thanks to its selection strategy and well-designed evolutionary operators.
-
-**In summary, we suggest choosing EVOPROMPT (GA) when several high-quality prompts already exist, and choosing EVOPROMPT (DE) otherwise.**
-  
-# Demonstration of EvoPrompt(GA)!
+- Use GA when the initial manual prompts are of high quality.
+- Use DE when the initial prompts are poor, as it's better at escaping local optima.
 
 ## Discussion Questions:
 *As we can see from the demonstration, there was no need to interact with any model parameters or gradients. Can anyone think of any benefits this may provide?*
 
 ![Alt Text](https://media.giphy.com/media/26FfieBFKHaHCivte/giphy.gif)
 
-- Model Improvement without additional training: EvoPrompt is a more data-driven approach to using the tool which was developed which improves results.
-- Black-box Utilization: This feature enables EVOPROMPT to work with LLMs as black-box entities, meaning it can be applied to a variety of pre-trained models without needing specific adaptations.
+- Model Improvement without additional training: EvoPrompt is a more data-driven approach to using the tool which was already  in production that improves results.
+- Black-box Utilization: This feature enables EvoPrompt to work with LLMs as black-box entities, meaning it can be applied to a variety of pre-trained models without needing specific adaptations.
 - Speed and Efficiency: Not having to backpropagate or update the neural network parameters might make the algorithm faster and more computationally efficient in certain scenarios.
 
 *What are the implications for the need to have a scoring metric mean for this the usage of this algorithm?*
@@ -159,7 +144,7 @@ EvoPrompt offers:
 EvoPrompt provides a data-driven framework to improving model performance without additional training. This is crucial for scenarios where re-training a model is either computationally expensive or practically infeasible. 
 
 - **Black-Box Utilization:**
-The ability to treat LLMs as black-boxes opens up the possibility of applying EvoPrompt across different domains and for different tasks, making it a versatile tool for NLP applications.
+Because EvoPrompt does not need access to model parameters, EvoPrompt is capable of improving the usage of model-as-service products or black-box LLMs. Further, it can be applied to a variety of pre-trained models without needing specific adaptations.
 
 - **Computational Efficiency:**
 The lack of a need for gradient calculations and parameter updates significantly speeds up the optimization process. This is especially important when the optimization has to be performed multiple times or in real-time scenarios.
@@ -204,3 +189,7 @@ Yue Zhang, Leyang Cui, Deng Cai, Xinting Huang, Tao Fang, and Wei Bi. Multi-task
 Bei Li, Rui Wang, Junliang Guo, Kaitao Song, Xu Tan, Hany Hassan, Arul Menezes, Tong Xiao, Jiang Bian, and JingBo Zhu. Deliberate then generate: Enhanced prompting framework for text generation. arXiv preprint arXiv:2305.19835, 2023.
 
 Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li, Carlos Guestrin, Percy Liang, and Tatsunori B. Hashimoto. Stanford alpaca: An instruction-following llama model. https://github.com/tatsu-lab/stanford_alpaca, 2023.
+
+Victor Sanh, Albert Webson, Colin Raffel, Stephen H Bach, Lintang Sutawika, Zaid Alyafeai, Antoine
+Chaffin, Arnaud Stiegler, Teven Le Scao, Arun Raja, et al. Multitask prompted training enables
+zero-shot task generalization. arXiv preprint arXiv:2110.08207, 2021.
