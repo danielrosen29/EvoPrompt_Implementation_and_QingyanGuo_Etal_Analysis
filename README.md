@@ -139,7 +139,7 @@ Because this is an evolutionary algorithm based method, one would expect the qua
 - Because you need a metric to decide which prompts to select for the next generation, this algorithm is only applicable for discrete prompts whose successfulness is measurable. 
 
 ## Critical Analysis:
-EvoPrompt offers:
+### Implications:
 - **Model Improvement Without Additional Training:**
 EvoPrompt provides a data-driven framework to improving model performance without additional training. This is crucial for scenarios where re-training a model is either computationally expensive or practically infeasible. 
 
@@ -149,11 +149,12 @@ Because EvoPrompt does not need access to model parameters, EvoPrompt is capable
 - **Computational Efficiency:**
 The lack of a need for gradient calculations and parameter updates significantly speeds up the optimization process. This is especially important when the optimization has to be performed multiple times or in real-time scenarios.
 
-- **An interesting conceptual idea of true AI** There is a framework implemented for the model to improve itself, is that now true AI?
+- **AI Implications** There is a framework implemented for the model to improve itself, is that true AI?
 
-Downsides:
+### Limitations:
 - **Limited Cases where it is applicable**
-- **Because you need a ground truth, even if the model comes up with a better answer you may mark it worse than the original despite it being better**
+	- Because you need a ground truth, even if the model comes up with a better answer you may mark it worse than the original despite it being better.
+- **Can anyone think of any others?**
 
 ## References:
 Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are few-shot learners. Advances in neural information processing systems, 33:1877–1901, 2020.
