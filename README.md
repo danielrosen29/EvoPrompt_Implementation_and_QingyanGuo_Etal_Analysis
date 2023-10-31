@@ -158,6 +158,10 @@ The lack of a need for gradient calculations and parameter updates significantly
 EvoPrompt provides a framework for the model to improve its own performance. 
 
 ### Limitations:
+
+- **Improvement can plateau:**
+Because EvoPrompt can retain prompts from previous generations, once it finds a prompt which scores well, it may show no further improvement with additional evolutionary steps.
+
 - **Limited Cases where it is applicable:**
 Because you need a ground truth, even if the model comes up with a better answer you may mark it worse than the original despite it being better.
 - **Can anyone think of any others?**
