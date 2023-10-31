@@ -1,5 +1,6 @@
 # CONNECTING LARGE LANGUAGE MODELS WITH EVOLUTIONARY ALGORITHMS YIELDS POWERFUL PROMPT OPTIMIZERS
 **Qingyan Guo, Rui Wang, Junliang Guo, Bei Li, Kaitao Song, Xu Tan, Guoqing Liu, Jiang Bian, Yujiu Yang**
+**Tsinghua University, Microsoft Research, Northeastern University**
 ****************************************************************************************************
 ## Introduction: 
 In recent times it has become clear that Large Language Models (LLMs) exhibit remarkable capabilities for performing various Natural Language Processing (NLP) tasks. However, achieving peak performance is often contingent on the quality of the prompt fed to the model. Traditionally, crafting these prompts has required substantial human effort, often relying on engineers with specialized knowledge and deep understanding of the models in question. In this paper, Qingyan Guo et al. propose a data-driven, automated technique for prompt development called EvoPrompt. EvoPrompt leverages Evolutionary Algorithms (EA) to iteratively refine and optimize prompts for specific NLP tasks without the need for human intervention. Their findings indicate that this automated approach can yield improvements in performance by up to 25% in some cases, marking a significant advancement in the field of prompt engineering.
