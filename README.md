@@ -119,7 +119,7 @@ Because this is an evolutionary algorithm based method, one would expect the qua
 **Dataset Performance:**
 
 - EvoPrompt(GA) performs better for sentiment analysis. (SST-5 dataset)
-- EvoPrompt(GA) is superior at question answering (SUBJ dataset)
+- EvoPrompt(DE) is superior at question answering (SUBJ dataset)
 
 **Scenario-Based Recommendations:**
 - Use GA when the initial manual prompts are of high quality.
