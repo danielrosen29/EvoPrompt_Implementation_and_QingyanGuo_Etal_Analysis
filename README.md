@@ -11,39 +11,42 @@ A discrete prompt is the use of explicit instructions to the input text fed to L
 the need to access the parameters and gradients of the models (Liu et al., 2023). These are the types of prompts which EvoPrompt aims to improve. 
 
 ## Evolutionary Algorithms:
-Evolutionary Algorithms (EAs) are a family of optimization algorithms inspired by the process of natural evolution. These algorithms are heuristics used to find approximate solutions to optimization and search problems. There are many different types and subtypes of EAs including but not limited to:
+Evolutionary Algorithms (EAs) are a family of algorithms inspired by the process of natural evolution. These algorithms are heuristics used to approximate solutions for optimization and search problems. There are many different types and subtypes of EAs
 
 - **Genetic Algorithms (GAs):** Perhaps the most well-known type, focused on string-based chromosomes and typically employs crossover, mutation, and selection.
 - **Differential Evolution (DE):** A population-based optimization algorithm that optimizes a problem by iteratively improving candidate solutions with regard to a given measure of quality.
 - **Estimation of Distribution Algorithms (EDAs):** Rather than using crossover and mutation, these algorithms build probabilistic models of promising solutions and sample from these models to generate new candidates.
 - **Neuroevolution:** A method for iteratively building a neural network through genetic propogation. 
 
-## EvoPrompt:
+# EvoPrompt:
 ![image](https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/162d89db-a9ee-4772-81cb-c2ffa9916c87)
 
-This algorithm is the general outline for implementing the evolutionary process of discrete prompts, but can be implemented different ways depending on which evolutionary operators (EO) are used. In the paper, Qingyan Guo et al. propose two implementations. The first of these is using a Genetic Algorithm as the EO, the second uses Differential Evolution. The notation for these in the paper is EvoPrompt(EA) and EvoPrompt(DE), respectively. 
+**This algorithm is the general outline for implementing the evolutionary process of discrete prompts, but can be implemented different ways depending on which evolutionary operators (EO) are used. In the paper, Qingyan Guo et al. propose two implementations. The first of these is using a Genetic Algorithm as the EO, the second uses Differential Evolution. The notation for these in the paper is EvoPrompt(EA) and EvoPrompt(DE), respectively.**
 
 ### EvoPrompt(GA):
-<img src="https://github.com/danielrosen29/EvoPrompt_Implementation_and_QingyanGuo_Etal_Analysis/assets/75226826/236d8997-5e35-42a6-9c6f-a5b2dd16ea8f" alt="EvoPrompt(GA) Pseudocode" align='right' width=50%>
-Genetic algorithms attempt to find the best solution by mimicking the process of natural evolution—inheritance, mutation, selection, and crossover are the primary operators.
+Genetic algorithms attempt to find the best solution by mimicking the process of natural evolution—the main operators being selection, crossover, and mutation.
 
-**Basic Steps for Genetic Algorithms:**
+**Steps for Genetic Algorithms:**
 
-- **Initialization:** Create an initial population of candidate solutions (chromosomes).
-- **Evaluation:** Evaluate the fitness of each chromosome in the population.
+- **Initialization:** Create an initial population of chromosomes (candidate solutions).
+- **Evaluation:** Evaluate each chromosome's fitness
 - **Selection:** Select parents based on their fitness.
-- **Crossover:** Create new chromosomes (offspring) by combining the genetic information of the parents.
+- **Crossover:** Create offspring by combining the genetic information of the parents.
 - **Mutation:** Apply random changes to the offspring.
 - **Replacement:** Replace the old population with the new population of offspring.
 - **Termination:** Repeat steps 2-6 until a termination condition is met (e.g., max number of generations, a solution with acceptable fitness is found).
 
-**Crossover:**
+<img src="https://github.com/danielrosen29/EvoPrompt_Implementation_and_QingyanGuo_Etal_Analysis/assets/75226826/236d8997-5e35-42a6-9c6f-a5b2dd16ea8f" alt="EvoPrompt(GA) Pseudocode" align='right' width=50%>
 
-This step combines genetic material from two parent chromosomes to produce one or more offspring. The idea is to inherit good traits from both parents, increasing the likelihood that the offspring will be more "fit." There are several types of crossover techniques:
+**EvoPrompt Implementation**
+- **Initialization:** User provides a prompt, then LLM generates N-1 similar prompts.
+- **Evaluation:** Use the metric to score each prompt.
+- **Selection:** Use the roulette wheel method to select two parent prompts from the population, with higher scoring prompts having a higher likelyhood of being chosen.
+- **Crossover:** Use an LLM to combine the prompts in N different ways to create offsping.
+- **Mutation:** Use an LLM to randomly change each of the offspring.
+- **Replacement:** Score the new prompts and add them to the population, then reduce the population to the N best scoring prompts.
+- **Termination:** Output best prompt.
 
-**Mutation:**
-
-This step serves to maintain genetic diversity and helps in exploring the search space more broadly. After crossover, the offspring undergo mutation with a small probability. Mutation changes one or more gene values in a chromosome.
   <img/>
 <img src="https://github.com/danielrosen29/QingyanGuo_Etal_Analysis/assets/75226826/4f021b7f-649e-474f-a57b-2315a72ede77"/> 
 <div align="center">
@@ -123,19 +126,18 @@ Because this is an evolutionary algorithm based method, one would expect the qua
   
 **Dataset Performance:**
 
-- EvoPrompt(GA) performs better than or comparable to EvoPrompt(DE) for most language understanding tasks. 
-- EvoPrompt(DE) is superior at all question answering tasks and subjectivity classification.
+- EvoPrompt(GA) performs better than EvoPrompt(DE) for most language understanding tasks. 
+- EvoPrompt(DE) is superior at question answering tasks and subjectivity classification.
 
-**Scenario-Based Recommendations:**
+**Author Recommendation for Selecting Implementation:**
 
-- Use GA when the initial manual prompts are of high quality.
-- Use DE when the initial prompts are poor, as it's better at escaping local optima.
+- Use EvoPrompt(GA) when the initial manual prompts are of high quality.
+- Use EvoPrompt(DE) when the initial prompts are poor, as it's better at escaping local optima.
 
 ---
 
 ## Let's look at our demo's results!!!
 
----
 ## Discussion Questions:
 - *As we can see from pseudocode, there was no need for EvoPrompt to interact with any model parameters or gradients. Can anyone think of any benefits this may provide?*
 
