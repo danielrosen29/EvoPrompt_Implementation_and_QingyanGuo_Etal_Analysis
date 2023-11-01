@@ -30,7 +30,7 @@ Genetic algorithms attempt to find the best solution by mimicking the process of
 
 - **Initialization:** Create an initial population of chromosomes (candidate solutions).
 - **Evaluation:** Evaluate each chromosome's fitness
-- **Selection:** Select parents based on their fitness.
+- **Selection:** Select two parents based on their fitness.
 - **Crossover:** Create offspring by combining the genetic information of the parents.
 - **Mutation:** Apply random changes to the offspring.
 - **Replacement:** Replace the old population with the new population of offspring.
