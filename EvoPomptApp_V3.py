@@ -222,7 +222,11 @@ def evoprompt_ga(num_prompts, num_iterations, role, user_prompt, target_response
                 except SyntaxError:
                     continue
         with results_col:
-            st.markdown(f"### Example Child:\n{mutated_prompts[0]}")        
+            st.markdown(f"### Children:\n")
+        for child in mutated_prompts:
+            with results_col:
+                st.markdown(f"- {child}")     
+               
         with log_col:
             st.write("Mutation Stage Complete")
         #Evaluation        
@@ -288,9 +292,11 @@ def evoprompt_ga(num_prompts, num_iterations, role, user_prompt, target_response
     st.markdown(f"{final_prompt}")
     st.write(' ')
     st.markdown(f"## Response: \n{final_response}")
-    st.markdown(f"**Rouge1 Score:** {final_score}")
+    st.markdown(f"**Rouge1 Score:** {round(final_score, 3)}")
     st.write(' ')
 
+    improvement = round(final_score/user_score*100 - 100, 3)
+    st.markdown(f'## Improvement: \n{improvement}%')
     #Plot our results
     best_scores = [user_score]+best_scores
     generations = list(range(len(best_scores)))
@@ -359,7 +365,7 @@ In summation, the multifaceted challenges and opportunities that confront us nec
 
 ---
 
-### Create a summarization prompt to be evolved using EvoPrompt(GA).
+### Create a summarization prompt which will be evolved using EvoPrompt(GA) to approximate the form of a hidden summarization prompt called on the same text. 
 
 """)
 
