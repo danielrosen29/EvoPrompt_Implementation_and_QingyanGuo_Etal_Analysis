@@ -166,9 +166,6 @@ Because you need a ground truth, even if the model comes up with a better answer
 
 ---
 
-## Thank you so much for your time!
-
----
 ## References:
 Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are few-shot learners. Advances in neural information processing systems, 33:1877–1901, 2020.
 
