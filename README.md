@@ -143,8 +143,6 @@ Because this is an evolutionary algorithm based method, one would expect the qua
 
 - *What are the implications of EvoPrompt requiring a scoring metric?*
 
-![Alt Text](https://media.giphy.com/media/26FfieBFKHaHCivte/giphy.gif)
-
 ## Critical Analysis:
 ### Implications:
 - **Model Improvement Without Additional Training:**
@@ -171,9 +169,6 @@ Because you need a ground truth, even if the model comes up with a better answer
 ---
 
 ## Thank you so much for your time!
-
-![Alt Text](https://github.com/danielrosen29/EvoPrompt_Implementation_and_QingyanGuo_Etal_Analysis/assets/75226826/d67c4ec5-e736-48b4-8d45-55473af2ea68)
-
 
 ---
 ## References:
