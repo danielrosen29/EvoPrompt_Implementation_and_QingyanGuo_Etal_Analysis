@@ -136,8 +136,6 @@ Because this is an evolutionary algorithm based method, one would expect the qua
 
 ---
 
-## Let's look at our demo's results!!!
-
 ## Discussion Questions:
 - *As we can see from pseudocode, there was no need for EvoPrompt to interact with any model parameters or gradients. Can anyone think of any benefits this may provide?*
 
