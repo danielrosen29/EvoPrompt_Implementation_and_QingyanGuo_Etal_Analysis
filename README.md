@@ -136,8 +136,6 @@ Because this is an evolutionary algorithm based method, one would expect the qua
 
 ---
 
-## Let's look at our demo's results!!!
-
 ## Discussion Questions:
 - *As we can see from pseudocode, there was no need for EvoPrompt to interact with any model parameters or gradients. Can anyone think of any benefits this may provide?*
 
@@ -168,9 +166,6 @@ Because you need a ground truth, even if the model comes up with a better answer
 
 ---
 
-## Thank you so much for your time!
-
----
 ## References:
 Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Language models are few-shot learners. Advances in neural information processing systems, 33:1877–1901, 2020.
 
